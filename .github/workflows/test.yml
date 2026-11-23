@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Installa dipendenze e browser
+        run: npm ci && npx playwright install --with-deps chromium
+      - name: Controllo sintassi
+        run: for f in lib/*.js lib/*/*.js functions/api/*.js scripts/*.mjs site/*.js tests/*.mjs; do node --check "$f"; done
+      - name: Test (nucleo, adapter, API, interfaccia iPhone/iPad)
+        run: npm test

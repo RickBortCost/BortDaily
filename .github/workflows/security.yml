@@ -1,6 +1,6 @@
 name: Controlli di sicurezza
 
-# TruffleHog: segreti in tutto lo storico Git (anche il branch gh-pages pubblicato).
+# TruffleHog: segreti in tutto lo storico Git.
 # Trivy: vulnerabilità note nelle dipendenze npm, segreti e configurazioni errate nei file.
 # Immagini bloccate per digest (aggiornare insieme a una nuova versione verificata).
 
@@ -23,8 +23,6 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Includi il sito pubblicato (gh-pages)
-        run: git fetch --no-tags --depth=1 "https://github.com/${{ github.repository }}.git" gh-pages:refs/remotes/origin/gh-pages || true
       - name: TruffleHog – segreti nello storico
         run: |
           docker run --rm -v "$PWD:/repo:ro" \

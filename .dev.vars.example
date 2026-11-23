@@ -1,0 +1,8 @@
+# Copia in .dev.vars (non versionato) per lo sviluppo locale: npm run serve
+ACCESS_CODES=io:un-codice-lungo-e-casuale
+BORT_DATA_KEY=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=http://localhost:8000/api/google/callback
+TELEGRAM_API_ID=
+TELEGRAM_API_HASH=

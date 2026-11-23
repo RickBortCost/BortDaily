@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <!-- Sicurezza: il sito carica solo i propri file e contatta solo la propria API (/api); le sorgenti esterne passano dal server -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BortDaily</title>
+  <meta name="description" content="La tua giornata in una pagina: posta, meteo, promemoria, calendario, notizie e Telegram.">
+  <meta name="theme-color" content="#f3f5fa">
+  <script src="theme-init.js"></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BortDaily">
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+      <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+      <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.2" fill="currentColor"/><circle cx="15" cy="6" r="1.2" fill="currentColor"/><circle cx="9" cy="12" r="1.2" fill="currentColor"/><circle cx="15" cy="12" r="1.2" fill="currentColor"/><circle cx="9" cy="18" r="1.2" fill="currentColor"/><circle cx="15" cy="18" r="1.2" fill="currentColor"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+      <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 22h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+      <symbol id="i-cloud-sun" viewBox="0 0 24 24"><path d="M12 2v2M4.93 4.93l1.41 1.41M20 12h2M19.07 4.93l-1.41 1.41M15.95 12.65a4 4 0 0 0-5.93-4.6"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></symbol>
+      <symbol id="i-rain" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="M16 14v6M8 14v6M12 16v6"/></symbol>
+      <symbol id="i-drizzle" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="M8 19v1M8 14v1M16 19v1M16 14v1M12 21v1M12 16v1"/></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/></symbol>
+      <symbol id="i-storm" viewBox="0 0 24 24"><path d="M6 16.33A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="m13 12-3 5h4l-3 5"/></symbol>
+      <symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="M16 17H7M17 21H9"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#main">Vai al contenuto</a>
+  <div class="offline-bar" role="status">Sei offline: stai vedendo gli ultimi dati caricati.</div>
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="BortDaily, dashboard"><img src="icon.svg" alt="" width="28" height="28"><span>BortDaily</span></a>
+    <div class="top-actions" id="top-actions" hidden>
+      <button class="icon-btn" id="refresh-btn" aria-label="Aggiorna tutto" title="Aggiorna tutto"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg></button>
+      <button class="icon-btn" id="edit-btn" aria-label="Personalizza la dashboard" aria-pressed="false" title="Personalizza"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></button>
+      <a class="icon-btn" id="settings-btn" href="#/impostazioni" aria-label="Impostazioni" title="Impostazioni"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg></a>
+    </div>
+    <button class="icon-btn" id="theme-btn" aria-label="Tema: automatico" title="Tema"><svg class="ic" aria-hidden="true"><use href="#i-auto"/></svg></button>
+  </header>
+
+  <div class="ptr" id="ptr" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg></div>
+
+  <main id="main" tabindex="-1">
+    <!-- Accesso -->
+    <section class="view" id="view-login" hidden aria-labelledby="login-title">
+      <form class="login card" id="login-form" autocomplete="on">
+        <img src="icon.svg" alt="" width="56" height="56">
+        <h1 id="login-title">Accedi a BortDaily</h1>
+        <p class="meta">Inserisci il tuo codice di accesso personale.</p>
+        <label class="field">
+          <span>Codice di accesso</span>
+          <input type="password" id="login-code" name="code" autocomplete="current-password" required minlength="12" maxlength="200" autocapitalize="off" spellcheck="false">
+        </label>
+        <p class="form-error" id="login-error" role="alert"></p>
+        <button class="primary big" type="submit">Accedi</button>
+      </form>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="view" id="view-dash" hidden aria-labelledby="dash-title">
+      <div class="dash-head">
+        <div>
+          <h1 id="dash-title">Buongiorno</h1>
+          <p class="meta" id="dash-date"></p>
+        </div>
+      </div>
+      <div class="edit-bar" id="edit-bar" hidden>
+        <p class="meta">Trascina <svg class="ic sm" aria-hidden="true"><use href="#i-grip"/></svg> per riordinare (oppure usa le frecce), scegli la dimensione S/M/L o rimuovi un widget.</p>
+        <div class="edit-actions">
+          <label class="field inline"><span class="sr">Widget da aggiungere</span><select id="add-type"></select></label>
+          <button class="ghost" id="add-btn"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> Aggiungi</button>
+          <button class="primary" id="done-btn">Fatto</button>
+        </div>
+      </div>
+      <div class="dash" id="dash" aria-live="off"></div>
+      <p class="empty" id="dash-empty" hidden>Nessun widget. Tocca <b>Personalizza</b> per aggiungerne.</p>
+    </section>
+
+    <!-- Impostazioni -->
+    <section class="view" id="view-settings" hidden aria-labelledby="set-title">
+      <div class="dash-head">
+        <a class="icon-btn" href="#/" aria-label="Torna alla dashboard"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></a>
+        <h1 id="set-title">Impostazioni</h1>
+      </div>
+
+      <section class="card set" aria-labelledby="set-accounts">
+        <h2 id="set-accounts">Account collegati</h2>
+        <div class="acct" id="acct-google"></div>
+        <div class="acct" id="acct-telegram"></div>
+      </section>
+
+      <section class="card set" aria-labelledby="set-weather">
+        <h2 id="set-weather">Meteo</h2>
+        <p class="meta" id="weather-current"></p>
+        <form id="city-form" class="row">
+          <label class="field grow"><span>Cerca città</span><input type="search" id="city-q" maxlength="80" autocomplete="off" placeholder="Es. Milano"></label>
+          <button class="ghost" type="submit">Cerca</button>
+        </form>
+        <ul class="pick" id="city-results"></ul>
+        <div class="row">
+          <button class="ghost" id="geo-btn"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Usa la mia posizione</button>
+          <button class="ghost danger" id="weather-clear">Rimuovi località</button>
+        </div>
+      </section>
+
+      <section class="card set" aria-labelledby="set-news">
+        <h2 id="set-news">Notizie</h2>
+        <p class="meta">Categorie e fonti RSS/Atom (indirizzi https, una per riga, al massimo 8 per categoria).</p>
+        <div id="cats"></div>
+        <div class="row">
+          <button class="ghost" id="cat-add"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> Nuova categoria</button>
+          <button class="ghost" id="cat-reset">Ripristina predefinite</button>
+          <button class="primary" id="cat-save">Salva notizie</button>
+        </div>
+      </section>
+
+      <section class="card set" aria-labelledby="set-general">
+        <h2 id="set-general">Aggiornamento</h2>
+        <label class="field"><span>Frequenza di aggiornamento automatico</span><select id="refresh-sel"></select></label>
+        <label class="field"><span>Fuso orario (calendario e promemoria)</span><input id="tz-input" maxlength="60" autocomplete="off" list="tz-list"></label>
+        <datalist id="tz-list"></datalist>
+        <label class="check"><input type="checkbox" id="tg-muted"> <span>Telegram: includi le chat silenziate</span></label>
+        <button class="primary" id="general-save">Salva</button>
+      </section>
+
+      <section class="card set" aria-labelledby="set-session">
+        <h2 id="set-session">Sessione</h2>
+        <p class="meta" id="session-user"></p>
+        <button class="ghost danger" id="logout-btn"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Esci</button>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <footer class="foot" id="foot"></footer>
+</body>
+</html>
