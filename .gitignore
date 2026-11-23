@@ -1,0 +1,5 @@
+.dev-data/
+node_modules/
+.cf-dist/
+.wrangler/
+.dev.vars
